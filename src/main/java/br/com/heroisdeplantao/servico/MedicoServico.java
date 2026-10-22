@@ -1,0 +1,3 @@
+package br.com.heroisdeplantao.servico;
+import br.com.heroisdeplantao.modelo.Medico;import br.com.heroisdeplantao.repositorio.Repositorio;
+public class MedicoServico{private final Repositorio<Medico> repositorio;public MedicoServico(Repositorio<Medico> repositorio){this.repositorio=repositorio;}public void cadastrar(Medico medico){if(repositorio.buscarPorId(medico.getIdMedico()).isPresent())throw new IllegalArgumentException("Médico já cadastrado");repositorio.salvar(medico.getIdMedico(),medico);}public Medico buscar(int id){return repositorio.buscarPorId(id).orElseThrow(()->new IllegalArgumentException("Médico não encontrado"));}public void atualizar(Medico medico){buscar(medico.getIdMedico());repositorio.salvar(medico.getIdMedico(),medico);}}

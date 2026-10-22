@@ -1,0 +1,3 @@
+package br.com.heroisdeplantao.servico;
+import br.com.heroisdeplantao.modelo.*;import br.com.heroisdeplantao.repositorio.Repositorio;
+public class ConvenioServico{private final Repositorio<Convenio> repositorio;public ConvenioServico(Repositorio<Convenio> repositorio){this.repositorio=repositorio;}public void cadastrar(Convenio convenio){if(repositorio.buscarPorId(convenio.getIdConvenio()).isPresent())throw new IllegalArgumentException("Convênio duplicado");repositorio.salvar(convenio.getIdConvenio(),convenio);convenio.getPaciente().setTemConvenio(true);}public void atualizar(Convenio convenio){if(repositorio.buscarPorId(convenio.getIdConvenio()).isEmpty())throw new IllegalArgumentException("Convênio inexistente");repositorio.salvar(convenio.getIdConvenio(),convenio);}}

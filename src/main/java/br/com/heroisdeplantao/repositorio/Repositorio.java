@@ -1,0 +1,3 @@
+package br.com.heroisdeplantao.repositorio;
+import java.util.List;import java.util.Optional;
+public interface Repositorio<T>{void salvar(int id,T entidade);Optional<T> buscarPorId(int id);List<T> listar();void excluir(int id);}

@@ -1,0 +1,4 @@
+package br.com.heroisdeplantao.servico;
+import br.com.heroisdeplantao.modelo.Paciente;import br.com.heroisdeplantao.repositorio.Repositorio;import java.util.List;
+public class PacienteServico{private final Repositorio<Paciente> repositorio;public PacienteServico(Repositorio<Paciente> repositorio){this.repositorio=repositorio;}
+ public void cadastrar(Paciente paciente){if(repositorio.buscarPorId(paciente.getIdPaciente()).isPresent())throw new IllegalArgumentException("Paciente já cadastrado");repositorio.salvar(paciente.getIdPaciente(),paciente);}public void atualizar(Paciente paciente){buscar(paciente.getIdPaciente());repositorio.salvar(paciente.getIdPaciente(),paciente);}public Paciente buscar(int id){return repositorio.buscarPorId(id).orElseThrow(()->new IllegalArgumentException("Paciente não encontrado"));}public List<Paciente> listar(){return repositorio.listar();}public void excluir(int id){buscar(id);repositorio.excluir(id);}}

@@ -1,0 +1,5 @@
+package br.com.heroisdeplantao.servico;
+import br.com.heroisdeplantao.modelo.*;import br.com.heroisdeplantao.repositorio.Repositorio;import java.time.*;
+public class ConsultaServico {private final Repositorio<Consulta> repositorio;public ConsultaServico(Repositorio<Consulta> repositorio){this.repositorio=repositorio;}
+ public void agendar(Consulta consulta){if(repositorio.buscarPorId(consulta.getIdConsulta()).isPresent())throw new IllegalArgumentException("ID de consulta duplicado");for(Consulta atual:repositorio.listar()){if(atual.getStatus()==Consulta.Status.AGENDADA&&atual.getData().equals(consulta.getData())&&atual.getHora().equals(consulta.getHora())&&(atual.getMedico().getIdMedico()==consulta.getMedico().getIdMedico()||atual.getPaciente().getIdPaciente()==consulta.getPaciente().getIdPaciente()))throw new IllegalArgumentException("Conflito de horário");}repositorio.salvar(consulta.getIdConsulta(),consulta);}
+ public void cancelar(int id){Consulta consulta=repositorio.buscarPorId(id).orElseThrow(()->new IllegalArgumentException("Consulta não encontrada"));consulta.cancelar();}}
